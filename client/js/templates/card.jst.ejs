@@ -1,0 +1,113 @@
+<div class="panel-body">
+  <% if(!_.isUndefined(authuser.user) && (authuser.user.role_id == 1 || !_.isEmpty(card.list.board.acl_links.where({slug: "view_card_labels", board_user_role_id: parseInt(card.board_user_role_id)})))) {  %>
+  <div class="clearfix js-card-label-section-<%- card.attributes.id %>">
+  <%
+  	card.labels.each(function(label) {
+            if (!_.isUndefined(label) && label.attributes.name !== "") { %>
+			<span class="cur"><i style="color:#<%- converter.colorCode(''+label.attributes.name).substring(0, 6) %>;" data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="<%- label.attributes.name %>" title="<%- label.attributes.name %>" class="<%= LABEL_ICON %> cur"></i></span>
+               
+   <%         }
+        });%> 
+  
+  
+  </div>
+ <%  } %> 
+ <div class="clearfix">
+  <% if(!_.isEmpty(card.attachments) && card.attachments.length > 0 && !_.isEmpty(card.attachments.at(0).attributes.name) && card.attachments.at(0).attributes.name.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)){ %>
+	  <div class="clearfix js-card-attachment-image navbar-btn <% if(!_.isEmpty(card.collection) && !card.list.collection.board.attributes.is_show_image_front_of_card){ %> hide <% } %>">
+		<%
+			var img_src = card.showImage('CardAttachment',  card.attachments.at(0).attributes.id, 'large_thumb' );
+		%>
+		<img class="img-responsive center-block" src="<%= img_src %>"/>
+	  </div>
+	<% } %> 
+  <a href="#" title="<%- card.attributes.name %>"><%- card.attributes.name %></a>
+  </div>
+  <div class="pull-left navbar-btn">
+  <ul class="list-unstyled list-inline text-muted clearfix">
+  	<%
+		if(!_.isUndefined(authuser) && !_.isUndefined(authuser.user)){
+			var cards_subscribers = card.cards_subscribers.where({
+				is_subscribed: 1,
+				user_id: parseInt(authuser.user.id) 
+			});
+		}
+	%>
+	<% if(!_.isUndefined(cards_subscribers) && !_.isEmpty(cards_subscribers)){ %>
+		<li><small><span class="icon-eye-open"></span></small></li>
+	<% } %> 
+	<% if(card.card_voters.length > 0){ %>
+	<li><small  title="<%- i18next.t('{{count}} Vote', {count: card.card_voters.length}) %> "><span class="icon-thumbs-up"></span><span><%- card.card_voters.length %></span></small></li>
+	<% } %>
+	<% 
+	if(card.attributes.comment_count > 0){ 
+	%>
+	<li><small title="<%- i18next.t('{{count}} Comment', {count: card.attributes.comment_count}) %> " ><span class="icon-comment"></span><span><%- card.attributes.comment_count %></span></small></li>
+	<% } %>
+	<% if(!_.isEmpty(card.attributes.description)){ %>
+	<li><small title="<%- i18next.t('Description') %>"><span class="icon-align-left"></span><span></span></small></li>
+	<% } %>
+	<% if(card.attributes.checklist_item_count > 0){ %>
+		<li><small title="<%- i18next.t('%s checklist completed out of %s', { postProcess: 'sprintf', sprintf: [card.attributes.checklist_item_completed_count, card.attributes.checklist_item_count]}) %> "><% if(card.attributes.checklist_item_completed_count == card.attributes.checklist_item_count) { %><div class="label label-success"> <% } %><span class="icon-list-ul"></span><span><%- card.attributes.checklist_item_completed_count %>/<%- card.attributes.checklist_item_count %></span><% if(card.attributes.checklist_item_completed_count == card.attributes.checklist_item_count) { %></div><% } %></small></li>
+	<% } %> 
+	<% if(card.attributes.due_date > 0){ %>
+		<li><small title="<%- i18next.t('Due Date') %>"><span class="icon-time"></span><span><%- card.attributes.due_date %></span></small></li>
+	<% } %> 
+	<% if(!_.isEmpty(card.attachments) && card.attachments.length > 0){ %>
+	<li>
+		<small title="<%- i18next.t('{{count}} Attachment', {count: card.attachments.length}) %> ">
+			<span class="icon-paper-clip"></span>
+			<span>
+			<%- card.attachments.length %>
+			</span>
+		</small>
+	</li>
+	<% } %>  
+	<% if(!_.isUndefined(card.id) && (_.isUndefined(card.attributes.is_offline) || card.attributes.is_offline == false)){ %>
+	<li class="pull-right card-id"><strong>#<%- card.id %></strong></li>
+	<%}%>
+	<% if(!_.isEmpty(card.attributes.due_date) && card.attributes.due_date != 'NULL'){
+		var date_time = card.attributes.due_date.split('T');
+		date_time = date_time[0].split(' ');
+	%>
+	<%
+		var today = new Date();
+		card_due_date = card.attributes.due_date.split('T');
+		var due_date = new Date(card_due_date[0]);
+		var diff = Math.floor(due_date.getTime() - today.getTime());
+		var day = 1000 * 60 * 60 * 24;
+		var days = Math.floor(diff / day);
+		if (days < -1) {
+			label = 'label-past';
+		} else if (days == -1) {
+			label = 'label-present';
+		} else if (days > -1) {
+			label = 'label-future';
+		}
+	%>
+	<li><small title=" <%- i18next.t('Due Date') %>"><span class="label <%- label %>"><%= dateFormat(date_time[0], 'mediumDate')  %></span></small></li>
+	<% } %>
+	</ul>
+	</div>
+	<div class="clearfix pull-right">
+		<ul class="list-unstyled list-inline text-muted clearfix">
+		<%
+			card.users.each(function(card_user) {
+				if (!_.isUndefined(card_user)) {
+		%>
+					<li class="pull-right js-tooltip navbar-btn" data-container="body" data-placement="bottom" title="<%-card_user.attributes.full_name %> (<%-card_user.attributes.username %>)" data-toggle="tooltip">
+						<% if(!_.isEmpty(card_user.attributes.profile_picture_path)) { 
+							var profile_picture_path = card.showImage('User', card_user.attributes.user_id, 'small_thumb' );
+						%>
+							<img src="<%=profile_picture_path %>" alt="[Image: <%-card_user.attributes.username %>]" title="<%-card_user.attributes.full_name %> (<%-card_user.attributes.username %>)" class="img-rounded img-responsive avatar">
+						<% } else {%>
+							<i class="avatar avatar-color-194 img-rounded"><%- card_user.attributes.initials %></i>									
+						<% } %>
+					</li>
+		<%		
+				}
+			});
+		%>
+		</ul>
+	</div>
+</div>
