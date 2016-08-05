@@ -5,7 +5,7 @@
   "main": "Gruntfile.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:RestyaPlatform/board.git"
+    "url": "git@github.com:thebostonpatriot/quilky.git"
   },
   "author": "Restya",
   "devDependencies": {
