@@ -95,8 +95,8 @@
 					apt-get install php5-geoip php5-dev libgeoip-dev
 					if [ $? != 0 ]
 					then
-						echo "php5-geoip php5-dev libgeoip-dev installation failed with error code 50"
-						exit 1
+						#echo "php5-geoip php5-dev libgeoip-dev installation failed with error code 50"
+						#exit 1
 					fi
 				fi
 				if ! hash pecl/geoip 2>&-;
@@ -104,35 +104,35 @@
 					pecl install geoip
 					if [ $? != 0 ]
 					then
-						echo "pecl geoip installation failed with error code 47"
-						exit 1
+						#echo "pecl geoip installation failed with error code 47"
+						#exit 1
 					fi
 				fi
 				echo "extension=geoip.so" >> /etc/php.ini
 				mkdir -v /usr/share/GeoIP
 				if [ $? != 0 ]
 				then
-					echo "GeoIP folder creation failed with error code 52"
-					exit 1
+					#echo "GeoIP folder creation failed with error code 52"
+					#exit 1
 				fi
-				wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
-				gunzip GeoIP.dat.gz
-				mv GeoIP.dat /usr/share/GeoIP/GeoIP.dat
-				wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
-				gunzip GeoIPv6.dat.gz
-				mv GeoIPv6.dat /usr/share/GeoIP/GeoIPv6.dat
-				wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
-				gunzip GeoLiteCity.dat.gz
-				mv GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
-				wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6-beta/GeoLiteCityv6.dat.gz
-				gunzip GeoLiteCityv6.dat.gz
-				mv GeoLiteCityv6.dat /usr/share/GeoIP/GeoLiteCityv6.dat
-				wget http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
-				gunzip GeoIPASNum.dat.gz
-				mv GeoIPASNum.dat /usr/share/GeoIP/GeoIPASNum.dat
-				wget http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNumv6.dat.gz
-				gunzip GeoIPASNumv6.dat.gz
-				mv GeoIPASNumv6.dat /usr/share/GeoIP/GeoIPASNumv6.dat
+				#wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+				#gunzip GeoIP.dat.gz
+				#mv GeoIP.dat /usr/share/GeoIP/GeoIP.dat
+				#wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+				#gunzip GeoIPv6.dat.gz
+				#mv GeoIPv6.dat /usr/share/GeoIP/GeoIPv6.dat
+				#wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+				#gunzip GeoLiteCity.dat.gz
+				#mv GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
+				#wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6-beta/GeoLiteCityv6.dat.gz
+				#gunzip GeoLiteCityv6.dat.gz
+				#mv GeoLiteCityv6.dat /usr/share/GeoIP/GeoLiteCityv6.dat
+				#wget http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
+				#gunzip GeoIPASNum.dat.gz
+				#mv GeoIPASNum.dat /usr/share/GeoIP/GeoIPASNum.dat
+				#wget http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNumv6.dat.gz
+				#gunzip GeoIPASNumv6.dat.gz
+				#mv GeoIPASNumv6.dat /usr/share/GeoIP/GeoIPASNumv6.dat
 
 				service php5-fpm restart
 				
@@ -229,8 +229,8 @@
 					yum install GeoIP-devel
 					if [ $? != 0 ]
 					then
-						echo "GeoIP-devel installation failed with error code 46"
-						exit 1
+					#	echo "GeoIP-devel installation failed with error code 46"
+					#	exit 1
 					fi
 				fi
 
@@ -239,35 +239,35 @@
 					pecl install geoip
 					if [ $? != 0 ]
 					then
-						echo "pecl geoip installation failed with error code 47"
-						exit 1
+					#	echo "pecl geoip installation failed with error code 47"
+					#	exit 1
 					fi
 				fi
-				echo "extension=geoip.so" >> /etc/php.ini
-				mkdir -v /usr/share/GeoIP
-				if [ $? != 0 ]
-				then
-					echo "GeoIP folder creation failed with error code 48"
-					exit 1
-				fi
-				wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
-				gunzip GeoIP.dat.gz
-				mv GeoIP.dat /usr/share/GeoIP/GeoIP.dat
-				wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
-				gunzip GeoIPv6.dat.gz
-				mv GeoIPv6.dat /usr/share/GeoIP/GeoIPv6.dat
-				wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
-				gunzip GeoLiteCity.dat.gz
-				mv GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
-				wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6-beta/GeoLiteCityv6.dat.gz
-				gunzip GeoLiteCityv6.dat.gz
-				mv GeoLiteCityv6.dat /usr/share/GeoIP/GeoLiteCityv6.dat
-				wget http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
-				gunzip GeoIPASNum.dat.gz
-				mv GeoIPASNum.dat /usr/share/GeoIP/GeoIPASNum.dat
-				wget http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNumv6.dat.gz
-				gunzip GeoIPASNumv6.dat.gz
-				mv GeoIPASNumv6.dat /usr/share/GeoIP/GeoIPASNumv6.dat
+				#echo "extension=geoip.so" >> /etc/php.ini
+				#mkdir -v /usr/share/GeoIP
+				#if [ $? != 0 ]
+				#then
+				#	echo "GeoIP folder creation failed with error code 48"
+				#	exit 1
+				#fi
+				#wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+				#gunzip GeoIP.dat.gz
+				#mv GeoIP.dat /usr/share/GeoIP/GeoIP.dat
+				#wget http://geolite.maxmind.com/download/geoip/database/GeoIPv6.dat.gz
+				#gunzip GeoIPv6.dat.gz
+				#mv GeoIPv6.dat /usr/share/GeoIP/GeoIPv6.dat
+				#wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+				#gunzip GeoLiteCity.dat.gz
+				#mv GeoLiteCity.dat /usr/share/GeoIP/GeoIPCity.dat
+				#wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6-beta/GeoLiteCityv6.dat.gz
+				#gunzip GeoLiteCityv6.dat.gz
+				#mv GeoLiteCityv6.dat /usr/share/GeoIP/GeoLiteCityv6.dat
+				#wget http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNum.dat.gz
+				#gunzip GeoIPASNum.dat.gz
+				#mv GeoIPASNum.dat /usr/share/GeoIP/GeoIPASNum.dat
+				#wget http://download.maxmind.com/download/geoip/database/asnum/GeoIPASNumv6.dat.gz
+				#gunzip GeoIPASNumv6.dat.gz
+				#mv GeoIPASNumv6.dat /usr/share/GeoIP/GeoIPASNumv6.dat
 
 				ps -q 1 | grep -q -c "systemd"
 				if [ "$?" -eq 0 ];
@@ -752,6 +752,7 @@
 
 			echo "Do you want to setup SMTP configuration (y/n)?"
 			read -r answer
+
 			case "${answer}" in
 				[Yy])
 				echo "Enter SMTP server address (e.g., smtp.gmail.com)"
