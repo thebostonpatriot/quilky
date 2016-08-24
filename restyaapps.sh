@@ -1,4 +1,14 @@
 set +x
+echo "Enter your document root (where your Restyaboard to be installed. e.g., /usr/share/nginx/html/restyaboard):"
+read -r dir
+while [[ -z "$dir" ]]
+do
+	read -r -p "Enter your document root (where your Restyaboard to be installed. e.g., /usr/share/nginx/html/restyaboard):" dir
+done
+set -x
+echo "$dir"
+
+set +x
 echo "Do you want to install Restyaboard apps (y/n)?"
 read -r answer
 set -x
