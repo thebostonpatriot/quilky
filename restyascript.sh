@@ -1,4 +1,4 @@
-RESTYABOARD_VERSION = 0.3
+RESTYABOARD_VERSION=$(curl --silent https://api.github.com/repos/RestyaPlatform/board/releases | grep tag_name -m 1 | awk '{print $2}' | sed -e 's/[^v0-9.]//g')
 echo "Downloading Restyaboard script..."
 			mkdir /opt/restyaboard
 			curl -v -L -G -d "app=board&ver=${RESTYABOARD_VERSION}" -o /tmp/restyaboard.zip http://restya.com/download.php
