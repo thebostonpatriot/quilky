@@ -16,19 +16,19 @@ echo "Creating PostgreSQL user and database..."
 			if [ $? != 0 ]
 			then
 				echo "PostgreSQL user creation failed with error code 35 "
-				exit 1
+				#exit 1
 			fi
 			psql -U postgres -c "CREATE DATABASE ${POSTGRES_DBNAME} OWNER ${POSTGRES_DBUSER} ENCODING 'UTF8' TEMPLATE template0"
 			if [ $? != 0 ]
 			then
 				echo "PostgreSQL database creation failed with error code 36"
-				exit 1
+				#exit 1
 			fi
 			psql -U postgres -c "CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;"
 			if [ $? != 0 ]
 			then
 				echo "PostgreSQL extension creation failed with error code 37"
-				exit 1
+				#exit 1
 			fi
 			psql -U postgres -c "COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';"
 			if [ "$?" = 0 ];
@@ -38,7 +38,7 @@ echo "Creating PostgreSQL user and database..."
 				if [ $? != 0 ]
 				then
 					echo "PostgreSQL Empty SQL importing failed with error code 39"
-					exit 1
+				#	exit 1
 				fi
 			fi
 			
