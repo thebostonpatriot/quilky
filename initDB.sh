@@ -10,7 +10,7 @@ RESTYABOARD_VERSION=$(curl --silent https://api.github.com/repos/RestyaPlatform/
 	EJABBERD_DBPASS=ftfnVgYl2
 	EJABBERD_DBPORT=5432
 	DOWNLOAD_DIR=/opt/restyaboard
-	dir = /usr/share/nginx/html/quilky
+	dir = "/usr/share/nginx/html/quilky"
 echo "Creating PostgreSQL user and database..."
 			psql -U postgres -c "CREATE USER ${POSTGRES_DBUSER} WITH ENCRYPTED PASSWORD '${POSTGRES_DBPASS}'"
 			if [ $? != 0 ]
