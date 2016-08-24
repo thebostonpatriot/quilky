@@ -1,3 +1,4 @@
+RESTYABOARD_VERSION = 0.3
 echo "Downloading Restyaboard script..."
 			mkdir /opt/restyaboard
 			curl -v -L -G -d "app=board&ver=${RESTYABOARD_VERSION}" -o /tmp/restyaboard.zip http://restya.com/download.php
